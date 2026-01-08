@@ -7,4 +7,6 @@ class CustomizeForm(CustomizeForm):
     @frappe.whitelist()
     def save_customization(self):
         super().save_customization()
+        if not self.module:
+            return
         export_customizations(self.module, self.doc_type, sync_on_migrate=True)
